@@ -7,7 +7,7 @@ class User:
 		self.score = score
 
 	@staticmethod
-	def create():
+	def save():
 		connection = connect()
 		try:
 			with connection.cursor() as cursor:
@@ -28,7 +28,7 @@ class User:
 				sql = "SELECT `id`, `name`, `score` FROM `users` WHERE `id`=%s"
 				cursor.execute(sql, (id))
 				user = cursor.fetchone()
-				
+
 				if user is None:
 					return None
 

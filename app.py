@@ -4,7 +4,7 @@
 from flask import Flask, render_template, g, make_response
 import os
 from decorators import session
-from models import Movie
+from models import Movie, Guess
 
 app = Flask(__name__)
 app.config.update(
@@ -25,15 +25,13 @@ def movie():
 	resp = make_response(render_template('movie.html', movie=Movie.next_for_user(g.user)))
 	resp.set_cookie('movie_quiz_user', str(g.user.id))
 	return resp
-	# Get next movie from db
 
 @app.route('/answer', methods=['POST'])
+@session.require_login
 def answer():
-	# Auth decorator - if user != exist redirect, if guess >9 leaderboard
-	# Get movie by id
-	# Save guess
-	# Check nr of guesses - new movie or leaderboard
-	return render_template('answer.html', movie=movie, complete=complete)
+	guess = Guess.save(request.form['guess'], g.user.id, request.form['movie'])
+	return render_template('answer.html', movie=guess.movie, complete=(True if Movie.next_for_user(g.user) else False), guess=guess)
+	# Göra template som skickar gissning till answer för att testa detta ovan
 
 @app.route('/leaderboard', methods=['GET', 'POST'])
 def leaderboard():
