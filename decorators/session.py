@@ -9,7 +9,7 @@ def _get_user_from_cookie():
 		return None
 	return User.from_id(id)
 
-def require_login():
+def require_login(func):
 	@wraps(func)
 	def decorated_function(*args, **kwargs):
 		g.user = _get_user_from_cookie()

@@ -17,7 +17,7 @@ class Guess:
 		try:
 			with connection.cursor() as cursor:
 				sql = "INSERT INTO `guesses` (guess, user_id, movie_id) VALUES (%s, %s, %s)"
-				result = cursor.execute(sql, (guess, user.id, movie.id))
+				result = cursor.execute(sql, (guess, user_id, movie_id))
 			
 			connection.commit()
 
@@ -30,7 +30,7 @@ class Guess:
 		connection = connect()
 		try:
 			with connection.cursor() as cursor:
-				sql = "SELECT `guesses.id` AS guess_id, `guesses.guess`, `users.id` AS user_id, `users.name` AS user_name, `users.score`, `movies.id` AS movie_id, `movies.name` AS movie_name, `movies.synopsis`, `movies.poster`, `movies.rating` FROM `guesses` INNER JOIN `users` on `guesses.user_id` = `users.id` INNER JOIN `movies` on `guesses.movie_id` = `movies.id` WHERE `guesses.id` = %s"
+				sql = "SELECT `guesses`.`id` AS guess_id, `guesses`.`guess`, `users`.`id` AS user_id, `users`.`name` AS user_name, `users`.`score`, `movies`.`id` AS movie_id, `movies`.`name` AS movie_name, `movies`.`synopsis`, `movies`.`poster`, `movies`.`rating` FROM `guesses` INNER JOIN `users` on `guesses`.`user_id` = `users`.`id` INNER JOIN `movies` on `guesses`.`movie_id` = `movies`.`id` WHERE `guesses`.`id` = %s"
 				cursor.execute(sql, (id))
 				data = cursor.fetchone()
 				

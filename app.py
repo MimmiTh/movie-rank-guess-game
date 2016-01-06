@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from flask import Flask, render_template, g, make_response
+from flask import Flask, render_template, g, make_response, request
 import os
-from decorators import session
+from decorators import require_login, identify_or_create_user
 from models import Movie, Guess
 
 app = Flask(__name__)
@@ -20,18 +20,17 @@ def index():
 	return render_template('index.html')
 
 @app.route('/movie', methods=['GET'])
-@session.identify_or_create_user
+@identify_or_create_user
 def movie():
 	resp = make_response(render_template('movie.html', movie=Movie.next_for_user(g.user)))
 	resp.set_cookie('movie_quiz_user', str(g.user.id))
 	return resp
 
 @app.route('/answer', methods=['POST'])
-@session.require_login
+@require_login
 def answer():
 	guess = Guess.save(request.form['guess'], g.user.id, request.form['movie'])
 	return render_template('answer.html', movie=guess.movie, complete=(True if Movie.next_for_user(g.user) else False), guess=guess)
-	# Göra template som skickar gissning till answer för att testa detta ovan
 
 @app.route('/leaderboard', methods=['GET', 'POST'])
 def leaderboard():
