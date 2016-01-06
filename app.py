@@ -4,7 +4,7 @@
 from flask import Flask, render_template, g, make_response, request
 import os
 from decorators import require_login, identify_user, identify_or_create_user
-from models import Movie, Guess
+from models import Movie, Guess, User
 
 app = Flask(__name__)
 app.config.update(
@@ -38,7 +38,7 @@ def leaderboard():
 	if request.method == 'POST' and g.user:
 		g.user.name = request.form['name']
 		g.user.update()
-	return render_template('leaderboard.html')
+	return render_template('leaderboard.html', users=User.by_score())
 
 if __name__ == '__main__':
 	app.run(debug=True)

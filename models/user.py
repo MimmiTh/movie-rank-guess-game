@@ -47,3 +47,14 @@ class User:
 				return User(user[u'id'], user[u'name'], user[u'score'])
 		finally:
 			connection.close()
+
+	@staticmethod
+	def by_score(amount=10):
+		connection = connect()
+		try:
+			with connection.cursor() as cursor:
+				sql = "SELECT `id`, `name`, `score` FROM `users` WHERE `score`>0 AND `name` != '' ORDER BY `score` DESC LIMIT %s"
+				cursor.execute(sql, (amount))
+				return [User(user[u'id'], user[u'name'], user[u'score']) for user in cursor.fetchall()]
+		finally:
+			connection.close()

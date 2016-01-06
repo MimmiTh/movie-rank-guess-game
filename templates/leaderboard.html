@@ -4,6 +4,8 @@
 	<title>Gissa filmrankningen</title>
 </head>
 <body>
-	<h1>Slut!</h1>
+	{% for user in users %}
+		{{user.name}}{{user.score}}
+	{% endfor %}
 </body>
 </html>
