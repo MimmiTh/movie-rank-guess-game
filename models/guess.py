@@ -1,7 +1,7 @@
 from db import connect
 from models import Movie, User
 
-MAX_DIFF = 9
+MAX_DIFF = 8
 
 class Guess:
 	def __init__(self, id, guess, user, movie):
@@ -15,7 +15,9 @@ class Guess:
 
 	@staticmethod
 	def save(guess, user_id, movie_id):
+		user = User.from_id(user_id)
 		rating = Movie.from_id(movie_id).rating
+		guess_id = None
 
 		diff = MAX_DIFF - abs(rating - int(guess))
 
@@ -23,13 +25,22 @@ class Guess:
 		try:
 			with connection.cursor() as cursor:
 				sql = "INSERT INTO `guesses` (guess, user_id, movie_id, diff) VALUES (%s, %s, %s, %s)"
-				result = cursor.execute(sql, (guess, user_id, movie_id, diff))
-			
+				cursor.execute(sql, (guess, user_id, movie_id, diff))
+				guess_id = cursor.lastrowid
+
+				sql = "SELECT SUM(`diff`) AS score FROM `guesses` WHERE `user_id`=%s"
+				cursor.execute(sql, (user_id))
+				result = cursor.fetchone()
+
+				user.score = result[u'score']
+
 			connection.commit()
 
-			return Guess.from_id(cursor.lastrowid)
 		finally:
 			connection.close()
+
+		user.update()
+		return Guess.from_id(guess_id)
 
 	@staticmethod
 	def from_id(id):

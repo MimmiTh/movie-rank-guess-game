@@ -17,7 +17,7 @@ class Movie:
 				cursor.execute(sql, (id))
 				movie = cursor.fetchone()
 				
-				if mpvie is None:
+				if movie is None:
 					return None
 
 				return Movie(movie[u'id'], movie[u'name'], movie[u'synopsis'], movie[u'poster'], movie[u'rating'])
