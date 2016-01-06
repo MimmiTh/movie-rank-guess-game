@@ -38,7 +38,7 @@ def leaderboard():
 	if request.method == 'POST' and g.user:
 		g.user.name = request.form['name']
 		g.user.update()
-	return render_template('leaderboard.html', users=users)
+	return render_template('leaderboard.html')
 
 if __name__ == '__main__':
 	app.run(debug=True)
