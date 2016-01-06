@@ -30,7 +30,7 @@ def movie():
 @require_login
 def answer():
 	guess = Guess.save(request.form['guess'], g.user.id, request.form['movie'])
-	return render_template('answer.html', movie=guess.movie, complete=(True if Movie.next_for_user(g.user) else False), guess=guess)
+	return render_template('answer.html', movie=guess.movie, complete=(False if Movie.next_for_user(g.user) else True), guess=guess)
 
 @app.route('/leaderboard', methods=['GET', 'POST'])
 def leaderboard():

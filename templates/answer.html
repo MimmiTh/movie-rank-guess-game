@@ -4,6 +4,18 @@
 	<title>Gissa filmrankningen</title>
 </head>
 <body>
-	<p>Då vare gissat!</p>
+	<h1>{{ movie.name }}</h1>
+
+	{% if movie.rating == guess.guess %}
+		<p>Det var rätt!</p>
+	{% else %}
+		<p>Det var fel...</p>
+	{% endif %}
+
+	{% if complete %}
+		<p>Klar</p>
+	{% else %}
+		<a href="/movie">Nästa film</a>
+	{% endif %}
 </body>
 </html>
