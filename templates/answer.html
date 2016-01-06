@@ -13,7 +13,10 @@
 	{% endif %}
 
 	{% if complete %}
-		<p>Klar</p>
+		<form action="/leaderboard" method="POST">
+			<label>Namn<input type="text" name="name"/></label>
+			<input type="submit" value="Till topplistan"/>
+		</form>
 	{% else %}
 		<a href="/movie">Nästa film</a>
 	{% endif %}

@@ -18,6 +18,14 @@ def require_login(func):
 		return func(*args, **kwargs)
 	return decorated_function
 
+def identify_user(func):
+	@wraps(func)
+	def decorated_function(*args, **kwargs):
+		if getattr(g, 'user', None) is None:
+			g.user = _get_user_from_cookie()
+		return func(*args, **kwargs)
+	return decorated_function
+
 def identify_or_create_user(func):
 	@wraps(func)
 	def decorated_function(*args, **kwargs):

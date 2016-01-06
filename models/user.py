@@ -6,6 +6,18 @@ class User:
 		self.name = name
 		self.score = score
 
+	def update(self):
+		connection = connect()
+		try:
+			with connection.cursor() as cursor:
+				sql = "UPDATE `users` SET `name`=%s, `score`=%s WHERE `id`=%s"
+				cursor.execute(sql, (self.name, self.score, self.id))
+
+			connection.commit()
+
+		finally:
+			connection.close()
+
 	@staticmethod
 	def save():
 		connection = connect()

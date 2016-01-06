@@ -3,7 +3,7 @@
 
 from flask import Flask, render_template, g, make_response, request
 import os
-from decorators import require_login, identify_or_create_user
+from decorators import require_login, identify_user, identify_or_create_user
 from models import Movie, Guess
 
 app = Flask(__name__)
@@ -33,9 +33,11 @@ def answer():
 	return render_template('answer.html', movie=guess.movie, complete=(False if Movie.next_for_user(g.user) else True), guess=guess)
 
 @app.route('/leaderboard', methods=['GET', 'POST'])
+@identify_user
 def leaderboard():
-	# If postdata - save name
-	# Get leaderboard
+	if request.method == 'POST' and g.user:
+		g.user.name = request.form['name']
+		g.user.update()
 	return render_template('leaderboard.html', users=users)
 
 if __name__ == '__main__':
