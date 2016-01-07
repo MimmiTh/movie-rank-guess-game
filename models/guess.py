@@ -1,6 +1,5 @@
 from db import connect
 from models import Movie, User
-import pdb
 
 MAX_DIFF = 8
 
@@ -12,8 +11,7 @@ class Guess:
 		self.movie = movie
 
 	def is_correct(self):
-		pdb.set_trace()
-		return self.movie.rating is self.guess
+		return int(self.movie.rating) is int(self.guess)
 
 	@staticmethod
 	def save(guess, user_id, movie_id):

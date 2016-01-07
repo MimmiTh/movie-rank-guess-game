@@ -7,7 +7,7 @@
 	<h1>{{ movie.name }}</h1>
 	<p>{{ movie.synopsis }}
 
-	{% if movie.rating == guess.guess %}
+	{% if guess.is_correct() %}
 		<p>Det var rätt!</p>
 	{% else %}
 		<p>Det var fel...</p>
