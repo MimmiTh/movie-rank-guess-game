@@ -1,13 +1,13 @@
 from functools import wraps
-from flask import g, request, redirect, url_for
+from flask import g, request, redirect, url_for, session
 from db import connect
 from models import User
 
 def _get_user_from_cookie():
-	id = request.cookies.get('movie_quiz_user')
-	if id is None:
+	user_id = getattr(session, 'user_id', None)
+	if user_id is None:
 		return None
-	return User.from_id(id)
+	return User.from_id(user_id)
 
 def require_login(func):
 	@wraps(func)
@@ -33,6 +33,7 @@ def identify_or_create_user(func):
 			user = _get_user_from_cookie()
 			if user is None:
 				user = User.save()
+				session['user_id'] = user.id
 			g.user = user
 		return func(*args, **kwargs)
 	return decorated_function

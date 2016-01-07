@@ -15,6 +15,8 @@ app.config.update(
 	DATABASE_PASSWORD=os.environ['DB_PASSWORD']
 	)
 
+app.secret_key = 'g\x10\xbc}VO^\x08T\xb0*\x10|\xf5\x97\x80\xc6\xab&4B\x0b\xfe'
+
 @app.route('/', methods=['GET'])
 def index():
 	return render_template('index.html')
@@ -22,9 +24,7 @@ def index():
 @app.route('/movie', methods=['GET'])
 @identify_or_create_user
 def movie():
-	resp = make_response(render_template('movie.html', movie=Movie.next_for_user(g.user)))
-	resp.set_cookie('movie_quiz_user', str(g.user.id))
-	return resp
+	return render_template('movie.html', movie=Movie.next_for_user(g.user))
 
 @app.route('/answer', methods=['POST'])
 @require_login
