@@ -5,6 +5,7 @@ from flask import Flask, render_template, g, make_response, request
 import os
 from decorators import require_login, identify_user, identify_or_create_user
 from models import Movie, Guess, User
+from pymysql.err import IntegrityError
 
 app = Flask(__name__)
 app.config.update(
@@ -29,7 +30,10 @@ def movie():
 @app.route('/answer', methods=['POST'])
 @require_login
 def answer():
-	guess = Guess.save(request.form['guess'], g.user.id, request.form['movie'])
+	try:
+		guess = Guess.save(request.form['guess'], g.user.id, request.form['movie'])
+	except IntegrityError, e:
+		return 'Du har redan gissat på den här filmen', 403
 	return render_template('answer.html', movie=guess.movie, complete=(False if Movie.next_for_user(g.user) else True), guess=guess)
 
 @app.route('/leaderboard', methods=['GET', 'POST'])
