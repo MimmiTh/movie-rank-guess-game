@@ -4,6 +4,9 @@
 	<title>Gissa filmrankningen</title>
 </head>
 <body>
+	{% if movie.poster %}
+		<img src="{{ url_for('static', filename='posters/'+movie.poster) }}"/>
+	{% endif %}
 	<h1>{{ movie.name }}</h1>
 	<p>{{ movie.synopsis }}</p>
 	<form action="/answer" method="POST">
