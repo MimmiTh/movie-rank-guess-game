@@ -3,11 +3,14 @@
 <head>
 	<title>Gissa filmrankningen</title>
 	<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+	<link href='https://fonts.googleapis.com/css?family=Lato:400,700,900' rel='stylesheet' type='text/css'>
 </head>
 <body>
-	<h1>Gissa filmrankningen</h1>
 	<main>
-		{% block body %}{% endblock %}
+		{% block image %}{% endblock %}
+		<section class="inner-content">
+			{% block body %}{% endblock %}
+		</section>
 	</main>
 </body>
 </html>

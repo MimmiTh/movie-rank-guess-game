@@ -1,7 +1,38 @@
 body {
 	background: #2A3148;
+	font-family: 'Lato', sans-serif;
+	font-size: 14px;
+	line-height: 1.7em;
+	color: #333;
+}
+
+h1 {
+	font-size: 2em;
+	font-weight: 900;
+	margin-top: 0;
 }
 
 main {
 	background: #fff;
+	max-width: 320px;
+	margin: 0 auto;
+}
+
+img {
+	max-width: 320px;
+}
+
+.inner-content {
+	padding: 30px;
+}
+
+button {
+	border: none;
+	color: #fff;;
+	background: #CA3D3D;
+	padding: 10px 15px;
+	font-weight: 400;
+	display: block;
+	margin: 0 auto;
+	text-transform: uppercase;
 }

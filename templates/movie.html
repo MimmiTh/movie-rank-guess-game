@@ -1,13 +1,27 @@
 {% extends "base.html" %}
-{% block body %}
+{% block image %}
 	{% if movie.poster %}
 		<img src="{{ url_for('static', filename='posters/'+movie.poster) }}"/>
 	{% endif %}
+{% endblock %}
+{% block body %}
 	<h1>{{ movie.name }}</h1>
 	<p>{{ movie.synopsis }}</p>
 	<form action="{{ url_for('answer') }}" method="POST">
 		<input type="hidden" name="movie" value="{{ movie.id }}"/>
-		<label>Rating<input type="range" min="1" max="9" name="guess"/></label>
+		<h2>Rating</h2>
+		<input type="range" id="rating" min="1" max="9" name="guess"/>
 		<button type="submit">Gissa</button>
 	</form>
+	<script>(function() {
+  			var input = document.querySelector('#rating')
+  			var valueDisplay = document.createElement('span')
+  			valueDisplay.classList.add('range-input-value')
+  			valueDisplay.textContent = 5
+  			input.parentNode.insertBefore(valueDisplay, input.nextSibling)
+
+  			input.addEventListener('change', function (e) {
+    			valueDisplay.textContent = e.target.value
+  			})
+	})()</script>
 {% endblock %}
