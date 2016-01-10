@@ -28,7 +28,7 @@ def index():
 @app.route('/movie', methods=['GET'])
 @identify_or_create_user
 def movie():
-    return render_template('guess.html', movie=Movie.next_for_user(g.user))
+    return render_template('movie.html', movie=Movie.next_for_user(g.user))
 
 
 @app.route('/answer', methods=['POST'])

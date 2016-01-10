@@ -1,11 +1,13 @@
-{% extends "movie.html" %}
-{% block action %}
+{% extends "base.html" %}
+{% block body %}
 	{% if guess.is_correct() %}
 		<p>Rätt</p>
 	{% else %}
 		<p>Fel</p>
 	{% endif %}
 
+	<p>Ditt svar: {{ guess.guess }}</p>
+	<p>Rankning: {{ movie.rating }}</p>
 	{% if complete %}
 		<form action="{{ url_for('leaderboard') }}" method="POST">
 			<label>Namn<input type="text" name="name"/></label>
