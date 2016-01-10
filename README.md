@@ -1,6 +1,6 @@
 # Movie rank guess game
 
-Movie rank guessing game made for final project in web development course at Stockholm University.
+Movie rank guessing game made for final project in web development course at Stockholm University. The code is a bit overly commented because of the requirements specified in the course.
 
 # Prerequisites
 
