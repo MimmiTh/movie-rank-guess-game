@@ -1,11 +1,6 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Gissa filmrankningen</title>
-</head>
-<body>
+{% extends "base.html" %}
+{% block body %}
 	{% for user in users %}
 		{{user.name}}{{user.score}}
 	{% endfor %}
-</body>
-</html>
+{% endblock %}

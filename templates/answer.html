@@ -1,25 +1,17 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Gissa filmrankningen</title>
-</head>
-<body>
-	<h1>{{ movie.name }}</h1>
-	<p>{{ movie.synopsis }}
-
+{% extends "movie.html" %}
+{% block action %}
 	{% if guess.is_correct() %}
-		<p>Det var rätt!</p>
+		<p>Rätt</p>
 	{% else %}
-		<p>Det var fel...</p>
+		<p>Fel</p>
 	{% endif %}
 
 	{% if complete %}
-		<form action="/leaderboard" method="POST">
+		<form action="{{ url_for('leaderboard') }}" method="POST">
 			<label>Namn<input type="text" name="name"/></label>
-			<input type="submit" value="Till topplistan"/>
+			<button type="submit">Till topplistan</button>
 		</form>
 	{% else %}
-		<a href="/movie">Nästa film</a>
+		<button><a href="{{ url_for('movie') }}">Nästa film</a></button>
 	{% endif %}
-</body>
-</html>
+{% endblock %}

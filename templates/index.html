@@ -1,10 +1,5 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Gissa filmrankningen</title>
-</head>
-<body>
-	<h1>Gissa filmrankningen</h1>
-	<a href="/movie">Starta</a>
-</body>
-</html>
+{% extends "base.html" %}
+{% block body %}
+	<p>Beskrivning av spelet</p>
+	<button><a href="{{ url_for('movie') }}">Starta</a></button>
+{% endblock %}
