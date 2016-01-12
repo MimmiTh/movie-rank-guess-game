@@ -1,17 +1,16 @@
 {% extends "base.html" %}
 {% block body %}
 	{% if guess.is_correct() %}
-		<p>Rätt</p>
+		<h1>Rätt svar</h1>
 	{% else %}
-		<p>Fel</p>
+		<h1>Fel svar</h1>
 	{% endif %}
 
-	<p>Ditt svar: {{ guess.guess }}</p>
-	<p>Rankning: {{ movie.rating }}</p>
+	<p>Du svarade: <b>{{ guess.guess }}</b>, rätt svar var: <b>{{ movie.rating }}</b></p>
 	{% if complete %}
 		<form action="{{ url_for('leaderboard') }}" method="POST">
 			<label>Namn<input type="text" name="name"/></label>
-			<button type="submit">Till topplistan</button>
+			<button type="submit"><span>Till topplistan</span></button>
 		</form>
 	{% else %}
 		<button><a href="{{ url_for('movie') }}">Nästa film</a></button>

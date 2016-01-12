@@ -60,7 +60,7 @@ def leaderboard():
         g.user.name = request.form['name']
         g.user.update()
 
-    return render_template('leaderboard.html', users=User.by_score())
+    return render_template('leaderboard.html', users=User.by_score(), score=g.user.score)
 
 if __name__ == '__main__':
     app.run(debug=True)

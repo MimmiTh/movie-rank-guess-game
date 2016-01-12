@@ -6,16 +6,21 @@ body {
 	color: #333;
 }
 
-h1 {
-	font-size: 2em;
-	font-weight: 900;
-	margin-top: 0;
-}
-
 main {
 	background: #fff;
 	max-width: 320px;
 	margin: 0 auto;
+}
+
+h1 {
+	font-size: 2em;
+	font-weight: 900;
+	margin-top: 0;
+	line-height: 1.2em;
+}
+
+h2 {
+	text-align: center;
 }
 
 img {
@@ -30,9 +35,54 @@ button {
 	border: none;
 	color: #fff;;
 	background: #CA3D3D;
+	font-weight: 600;
+	display: block;
+	margin: 20px auto 0 auto;
+	text-transform: uppercase;
+	border-radius: 3px;
+	cursor: pointer;
+}
+
+button:hover {
+	background: #BB3C3C;
+}
+
+button a, button span {
 	padding: 10px 15px;
-	font-weight: 400;
+	display: block;
+	color: #fff;
+	text-decoration: none;
+}
+
+input[type=range] {
 	display: block;
 	margin: 0 auto;
-	text-transform: uppercase;
+}
+
+input[type=text] {
+	padding: 10px;
+    border-radius: 3px;
+    border: 1px solid #B9B9B9;
+    display: block;
+}
+
+ĺabel {
+	font-weight: 600;
+}
+
+.range-input-value {
+	display: block;
+	font-size: 16px;
+	font-weight: 600;
+	margin: 10px 0 0;
+	text-align: center;
+}
+
+th, td {
+	text-align: left;
+	padding: 5px 30px 5px 10px;
+}
+
+tr:nth-child(even)  {
+	background: #EAEAEA
 }
