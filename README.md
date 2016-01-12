@@ -13,4 +13,5 @@ Movie rank guessing game made for final project in web development course at Sto
 1. `make bootstrap`
 2. `. _virtualenv/bin/activate`
 3. Import database schema `schema.sql`
-4. `DB_HOST='' DB_PORT= DB_NAME='movie_guess' DB_USER='' DB_PASSWORD='' python app.py`
+4. Fill out config file 'config.py'
+4. `python app.py`
