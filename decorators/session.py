@@ -1,7 +1,7 @@
 from functools import wraps
 from flask import g, request, redirect, url_for, session
 from db import connect
-from models import User
+from models import User, Movie
 
 
 def _get_user_from_cookie():
@@ -42,5 +42,15 @@ def identify_or_create_user(func):
                 user = User.save()
                 session[u'user_id'] = user.id
             g.user = user
+        return func(*args, **kwargs)
+    return decorated_function
+
+
+def is_not_done(func):
+    '''Redirect user to leaderboard if there are no more movies to guess on'''
+    @wraps(func)
+    def decorated_function(*args, **kwargs):
+        if not Movie.next_for_user(g.user):
+            return redirect(url_for('leaderboard'))
         return func(*args, **kwargs)
     return decorated_function

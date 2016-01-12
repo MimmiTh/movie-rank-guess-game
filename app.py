@@ -1,11 +1,15 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
-from flask import Flask, render_template, g, make_response, request
 import os
-from decorators import require_login, identify_user, identify_or_create_user
-from models import Movie, Guess, User
+from flask import Flask, render_template, g, make_response, request
 from pymysql.err import IntegrityError
+from models import Movie, Guess, User
+from decorators import (
+    require_login,
+    identify_user,
+    identify_or_create_user,
+    is_not_done
+)
 
 app = Flask(__name__)
 app.config.from_object('config')
@@ -21,6 +25,7 @@ def index():
 
 @app.route('/movie', methods=['GET'])
 @identify_or_create_user
+@is_not_done
 def movie():
     return render_template('movie.html', movie=Movie.next_for_user(g.user))
 
