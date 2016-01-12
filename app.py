@@ -8,16 +8,10 @@ from models import Movie, Guess, User
 from pymysql.err import IntegrityError
 
 app = Flask(__name__)
-app.config.update(
-    DATABASE_HOST=os.environ['DB_HOST'],
-    DATABASE_PORT=os.environ['DB_PORT'],
-    DATABASE_NAME=os.environ['DB_NAME'],
-    DATABASE_USER=os.environ['DB_USER'],
-    DATABASE_PASSWORD=os.environ['DB_PASSWORD']
-    )
+app.config.from_object('config')
 
 # Encrypt cookies
-app.secret_key = 'g\x10\xbc}VO^\x08T\xb0*\x10|\xf5\x97\x80\xc6\xab&4B\x0b\xfe'
+app.secret_key = app.config['SECRET_KEY']
 
 
 @app.route('/', methods=['GET'])
@@ -60,7 +54,11 @@ def leaderboard():
         g.user.name = request.form['name']
         g.user.update()
 
-    return render_template('leaderboard.html', users=User.by_score(), score=g.user.score)
+    return render_template(
+        'leaderboard.html',
+        users=User.by_score(),
+        score=g.user.score
+    )
 
 if __name__ == '__main__':
     app.run(debug=True)
