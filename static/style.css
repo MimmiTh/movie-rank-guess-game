@@ -78,6 +78,10 @@ input[type=text] {
 	text-align: center;
 }
 
+table {
+	width: 100%;
+}
+
 th, td {
 	text-align: left;
 	padding: 5px 30px 5px 10px;
